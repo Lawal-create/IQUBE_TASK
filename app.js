@@ -4,10 +4,10 @@ const request = require("request");
 const prompt = require("prompt");
 
 prompt.start();
-prompt.get(['searchterm'], (err, result) => {
+prompt.get(['searchTerm'], (err, result) => {
 
 
-    args = result.searchterm;
+    args = result.searchTerm;
     const options = {
         url: `https://icanhazdadjoke.com/search?term=${args}`,
         headers: { 'Accept': 'application/json' }
@@ -18,25 +18,18 @@ prompt.get(['searchterm'], (err, result) => {
 
     } else {
         //To request from the api server
-        request.get(options, (ERR, response, body) => {
-            let bodyvalue = JSON.parse(body);
-
-            if (bodyvalue.total_jokes > 0) {
-                let random = Math.floor(Math.random() * bodyvalue.results.length);
-                let joke = bodyvalue.results[random].joke;
-                //To append a random joke into jokes.txt
-                console.log(joke);
-                fs.appendFileSync("./jokes.txt", `${joke}\n`);
-
-            } else {
-                console.log("No jokes present");
-            }
-        })
+        requestApi(options);
     }
 })
 
+//To write the joke to the file
+let writeToFile=(joke)=>{
+    fs.appendFileSync("./jokes.txt", `${joke}\n`);
+}
+
+
 //To get leaderboard
-function leaderboard() {
+leaderboard=()=> {
     fs.readFile("./jokes.txt", "utf8", (err, data) => {
         let value = data.split("\n");
         value = value.filter((empty) => {
@@ -49,7 +42,7 @@ function leaderboard() {
 }
 
 //To find the maximum value
-function Maxvalue(givenArray) {
+Maxvalue=(givenArray)=> {
     let itemsMap = {};
     let maxValue = 0;
     let maxCount = 0;
@@ -68,4 +61,24 @@ function Maxvalue(givenArray) {
         }
     }
     return maxValue;
+}
+
+
+
+requestApi=(options)=> {
+    request.get(options, (ERR, response, body) => {
+        let bodyvalue = JSON.parse(body);
+
+        if (bodyvalue.total_jokes > 0) {
+            let random = Math.floor(Math.random() * bodyvalue.results.length);
+            let joke = bodyvalue.results[random].joke;
+            //To append a random joke into jokes.txt
+            console.log(joke);
+            writeToFile(joke);
+
+
+        } else {
+            console.log("No jokes present");
+        }
+    });
 }
