@@ -1,0 +1,24 @@
+{
+  "name": "iqube_nodejs_task",
+  "version": "1.0.0",
+  "description": "nodejs exercise",
+  "main": "app.js",
+  "dependencies": {
+    "prompt": "^1.1.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lawal-create/IQUBE_TASK.git"
+  },
+  "author": "Hakeem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lawal-create/IQUBE_TASK/issues"
+  },
+  "homepage": "https://github.com/Lawal-create/IQUBE_TASK#readme"
+}
