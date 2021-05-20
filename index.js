@@ -8,7 +8,7 @@ let writeToFile=(joke)=>{
 }
 
 //Sends a request to the api
-exports.requestApi=(options)=> {
+let requestApi=(options)=> {
     request.get(options, (ERR, response, body) => {
         let bodyvalue = JSON.parse(body);
 
@@ -18,8 +18,7 @@ exports.requestApi=(options)=> {
             //To append a random joke into jokes.txt
             console.log(joke);
             writeToFile(joke);
-
-
+            
         } else {
             console.log("No jokes present");
         }
@@ -27,7 +26,7 @@ exports.requestApi=(options)=> {
 }
 
 //To get leaderboard
-exports.leaderboard=()=> {
+let leaderboard=()=> {
     fs.readFile("./jokes.txt", "utf8", (err, data) => {
         let value = data.split("\n");
         value = value.filter((empty) => {
@@ -59,4 +58,9 @@ Maxvalue=(givenArray)=> {
         }
     }
     return maxValue;
+}
+
+module.exports={
+    requestApi,
+    leaderboard
 }
